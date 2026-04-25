@@ -106,34 +106,29 @@ Cross-check anchor timestamps against `edit/takes_packed.md`. Review the
 plan against `docs/MOTION_PHILOSOPHY.md`. Approve (or iterate) before any
 HTML is written. **A wrong plan costs one round-trip. Wrong HTML costs ten.**
 
-For every overlay needed:
+For every beat in the approved plan:
 
-1. **Pick a template** from `templates/`:
-   - `templates/lower-third/` — instructor name + title, slides in from left
-   - `templates/chapter-card/` — full-screen between chapters
-   - `templates/code-overlay/` — syntax-highlighted code block
-   - `templates/intro-outro/` — episode title and end card
-2. **Parameterize.** Write `episodes/<n>/motion-graphics/<name>.params.json`
-   with the episode-specific text values (chapter title, code snippet, etc.).
-   Brand values (palette, typography, timing) are injected from `BRAND.md`
-   at render time — do not copy or hard-code them in a template duplicate.
-3. **Preview.** `cd templates/<name> && npx hyperframes preview` to verify
-   in the browser (`localhost:3002`). Use the Hyperframes timeline editor
-   to adjust beat timing by dragging — changes write back to the composition
-   HTML. Iterate here before rendering.
-4. **Render.** `npx hyperframes render --output episodes/<n>/motion-graphics/<name>.mp4`
-   from the template directory. Hyperframes produces a deterministic MP4
-   with alpha channel where the template uses transparency.
-5. **Verify frames.** Capture a screenshot of each beat's key frame and
+1. **Write the composition.** Use the `/hyperframes` slash command for
+   guidance. Each beat is a self-contained HTML file using GSAP, saved to
+   `episodes/<n>/motion-graphics/<beat-name>/index.html`. Read brand values
+   directly from `BRAND.md` and inject them as CSS custom properties at the
+   composition root. Do not copy values by hand.
+2. **Preview.** `cd episodes/<n>/motion-graphics/<beat-name> && npx hyperframes preview`
+   to verify in the browser (`localhost:3002`). Use the timeline editor to
+   adjust timing by dragging — changes write back to the HTML. Iterate here
+   before rendering.
+3. **Render.** `npx hyperframes render --output episodes/<n>/motion-graphics/<beat-name>.mp4`
+   Hyperframes produces a deterministic MP4 with alpha channel where the
+   composition uses transparency.
+4. **Verify frames.** Capture a screenshot of each beat's key frame and
    inspect it before proceeding to Stage 3. Check: correct text, no clipping,
-   brand values applied, no black frames, composition fits the 1920×1080
-   frame. If anything is wrong, fix the composition and re-render here —
-   don't carry broken overlays into the composite step. Store screenshots
-   in `episodes/<n>/motion-graphics/verify/`.
+   brand values applied, no black frames, composition fits 1920×1080. If
+   anything is wrong, fix and re-render — don't carry broken overlays into
+   the composite step. Store screenshots in `episodes/<n>/motion-graphics/verify/`.
 
-**Spawn animations in parallel sub-agents** when more than one overlay
-is needed for the episode. Each sub-agent gets a self-contained brief:
-template path, episode-specific values, output path, BRAND.md reference.
+**Spawn animations in parallel sub-agents** when more than one beat is
+needed. Each sub-agent gets a self-contained brief: beat name, anchor
+timestamp, layout spec, color assignment, output path, BRAND.md reference.
 Total wall time ≈ slowest animation.
 
 **Hyperframes-specific rules to remember:**
@@ -195,7 +190,8 @@ rejects non-conforming uploads.
 | EDL | `episodes/<n>/edit/edl.json` |
 | Cut preview | `episodes/<n>/edit/preview.mp4` |
 | Master subtitles | `episodes/<n>/edit/master.srt` |
-| Per-overlay render | `episodes/<n>/motion-graphics/<name>.mp4` |
+| Beat composition | `episodes/<n>/motion-graphics/<beat-name>/index.html` |
+| Beat render | `episodes/<n>/motion-graphics/<beat-name>.mp4` |
 | Overlay verify frames | `episodes/<n>/motion-graphics/verify/<name>-frame.png` |
 | Final delivery | `episodes/<n>/final/final.mp4` |
 | Session memory | `episodes/<n>/project.md` |
