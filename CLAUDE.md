@@ -43,10 +43,10 @@ authoring (installed via `npx skills add heygen-com/hyperframes`).
    output at every cut boundary AND at every overlay in/out point. Cap
    self-eval at 3 passes; flag remaining issues to the user rather than
    looping.
-7. **Never write outside the current episode's `edit/` and `final/`
-   directories.** The studio root, `templates/`, `BRAND.md`, and other
-   episodes are read-only in a working session unless the user explicitly
-   asks you to modify them.
+7. **Never write outside the current episode's `edit/`, `motion-graphics/`,
+   and `final/` directories.** The studio root, `templates/`, `BRAND.md`,
+   and other episodes are read-only in a working session unless the user
+   explicitly asks you to modify them.
 
 ## Udemy-specific cut craft
 
@@ -62,8 +62,8 @@ RECAP (10–20s)    — the takeaway, one-sentence-per-step summary
 NEXT (5–10s)      — what they learn in the next lesson
 ```
 
-Per-chapter: insert a chapter card overlay (template at
-`templates/chapter-card/`) with the chapter title from `BRAND.md` typography.
+Per-chapter: write a chapter card beat composition using the `/hyperframes`
+skill, with the chapter title styled per `BRAND.md` typography.
 Lower-third on the speaker's first appearance only — not every cut.
 
 ## When you don't know

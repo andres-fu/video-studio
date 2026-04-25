@@ -6,10 +6,10 @@ skills wired together with a brand reference file:
 
 ```
 raw footage  ─┐
-              │   ┌─ video-use ─┐    ┌─ hyperframes ─┐
-              ├──►│ cut filler  │ ──►│ motion graphics│ ──► final.mp4
-BRAND.md ─────┤   │ color grade │    │ lower-thirds   │
-              │   │ subtitles   │    │ code overlays  │
+              │   ┌─ video-use ─┐    ┌─ hyperframes ─┐    ┌─ ffmpeg ──┐
+              ├──►│ cut filler  │ ──►│ motion graphics│ ──►│ composite │──► final.mp4
+BRAND.md ─────┤   │ color grade │    │ lower-thirds   │    │ + deliver │
+              │   │ subtitles   │    │ code overlays  │    └───────────┘
               │   │ self-eval   │    │ chapter cards  │
               │   └─────────────┘    └────────────────┘
 ```
@@ -96,25 +96,23 @@ video-studio/
 ├── install.sh               ← one-shot dependency setup
 ├── .env.example             ← API key template
 ├── skills/
-│   ├── video-use/           ← cutting skill (vendored SKILL.md for reference)
-│   └── hyperframes/         ← motion graphics skill (installed via npx)
+│   └── video-use/           ← cutting skill (cloned by install.sh)
 ├── episodes/
 │   ├── _template/           ← copy this for each new episode
 │   └── 01-intro/            ← example episode (you create these)
-├── templates/               ← reusable Hyperframes compositions per brand
-│   ├── lower-third/
-│   ├── code-overlay/
-│   ├── chapter-card/
-│   └── intro-outro/
+├── templates/
+│   └── _assets/             ← brand fonts, logos, audio stings
 └── docs/
     ├── PIPELINE.md          ← the full process, end to end
+    ├── MOTION_PHILOSOPHY.md ← eleven laws for premium motion design
+    ├── LESSON_STYLE.md      ← style reference built up over episodes
     └── PROMPTS.md           ← copy-pasteable prompt patterns
 ```
 
 ## Cost estimate per episode
 
 - **ElevenLabs Scribe transcription:** ~$0.40 per 10 minutes of audio
-- **Claude Code tokens:** typically $1–$3 per episode depending on iteration
+- **Claude Code tokens:** typically $3–$7 per episode depending on iteration
 - **Compute (rendering):** local FFmpeg + headless Chrome. Free.
 
 A 12-minute Udemy episode usually lands at **under $5 all-in**.
