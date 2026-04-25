@@ -1,0 +1,42 @@
+# Secrets
+.env
+*.key
+
+# Episode outputs (rebuildable from raw + skill state)
+episodes/*/edit/
+episodes/*/motion-graphics/*.mp4
+episodes/*/final/*.mp4
+
+# Keep the template directory tracked but its sample contents ignored
+!episodes/_template/
+
+# Raw source video — too big for git, store in cloud storage / external drive
+episodes/*/raw/*.mp4
+episodes/*/raw/*.mov
+episodes/*/raw/*.MP4
+episodes/*/raw/*.MOV
+
+# Vendored skill (cloned by install.sh, not version-controlled here)
+skills/video-use/.git/
+skills/video-use/node_modules/
+skills/video-use/__pycache__/
+skills/video-use/.venv/
+
+# Hyperframes scratch
+node_modules/
+.next/
+.turbo/
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
