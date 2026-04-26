@@ -47,4 +47,4 @@ BRAND.md — flag these for potential backport.
 
 **Brand calls:** Inter Bold TTF added to `templates/_assets/fonts/` — `install.sh` should download this alongside woff2 files for future episodes so libass subtitle rendering works out of the box.
 
-**Outstanding:** (1) Real course footage not yet recorded — all content is smoke-test material. (2) `install.sh` needs updating to download `Inter-Bold.ttf` (TTF format) for libass. (3) `test.mp4` in `raw/` safe to delete.
+**Outstanding:** (1) Real course footage not yet recorded — all content is smoke-test material. (2) `install.sh` needs `brew install homebrew-ffmpeg/ffmpeg/ffmpeg` instead of `brew install ffmpeg` — core Homebrew tap lacks libass, subtitles will break on a fresh clone. (3) `install.sh` needs to download `Inter-Bold.ttf` (TTF format, not just woff2) for libass subtitle rendering. (4) `test.mp4` in `raw/` safe to delete.
