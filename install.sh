@@ -101,26 +101,28 @@ else
   ok "registered video-use at $CLAUDE_SKILLS_DIR/video-use"
 fi
 
-# Install Python deps for video-use
+# Install Python deps for video-use inside a venv
 log "  installing video-use Python dependencies"
 if [[ -f "$VIDEO_USE_DIR/pyproject.toml" ]]; then
-  python3 -m pip install --quiet -e "$VIDEO_USE_DIR"
-  ok "video-use deps installed"
+  VENV_DIR="$VIDEO_USE_DIR/.venv"
+  if [[ ! -d "$VENV_DIR" ]]; then
+    python3 -m venv "$VENV_DIR"
+    ok "created venv at $VENV_DIR"
+  fi
+  "$VENV_DIR/bin/pip" install --quiet -e "$VIDEO_USE_DIR"
+  ok "video-use deps installed (venv: $VENV_DIR)"
 else
   warn "no pyproject.toml in video-use — skipping pip install"
 fi
 
 # ---------------------------------------------------------------------------
-# Step 3 — install Hyperframes skills
+# Step 3 — install Hyperframes skills (interactive TUI — must run on a TTY)
 # ---------------------------------------------------------------------------
 log "Step 3/6 — installing Hyperframes (motion graphics layer)"
-# `npx skills add` is the official install path per HeyGen docs.
-# It registers /hyperframes, /hyperframes-cli, /gsap slash commands.
-if npx --yes skills add heygen-com/hyperframes 2>&1 | tee /tmp/hf-install.log | grep -qi 'installed\|already'; then
-  ok "Hyperframes skills installed"
-else
-  warn "Hyperframes install command produced unexpected output — check /tmp/hf-install.log"
-fi
+# The skills installer is interactive: it shows a skill-picker TUI.
+# Run it directly so it gets a real TTY; pipe-based approaches break it.
+npx --yes skills add heygen-com/hyperframes
+ok "Hyperframes skills installed (select all skills when prompted)"
 
 # ---------------------------------------------------------------------------
 # Step 4 — fonts
@@ -142,14 +144,14 @@ download_font() {
   fi
 }
 
-# Inter from Google Fonts CDN
-download_font "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2" \
+# Inter + JetBrains Mono via jsDelivr / @fontsource (stable, versioned)
+download_font "https://cdn.jsdelivr.net/npm/@fontsource/inter@5/files/inter-latin-400-normal.woff2" \
               "$FONTS_DIR/Inter-Regular.woff2"
-download_font "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7.woff2" \
+download_font "https://cdn.jsdelivr.net/npm/@fontsource/inter@5/files/inter-latin-600-normal.woff2" \
               "$FONTS_DIR/Inter-SemiBold.woff2"
-download_font "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7.woff2" \
+download_font "https://cdn.jsdelivr.net/npm/@fontsource/inter@5/files/inter-latin-700-normal.woff2" \
               "$FONTS_DIR/Inter-Bold.woff2"
-download_font "https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2" \
+download_font "https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5/files/jetbrains-mono-latin-500-normal.woff2" \
               "$FONTS_DIR/JetBrainsMono-Medium.woff2"
 
 # ---------------------------------------------------------------------------

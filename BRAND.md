@@ -14,10 +14,10 @@ file, it isn't part of the brand — ask before adding it.
 
 | Field | Value |
 |---|---|
-| Course name | <!-- TODO: e.g. "Production-Grade Engineering Management" --> |
-| Tagline | <!-- TODO: one short line, used on intro card --> |
-| Instructor name | <!-- TODO --> |
-| Instructor title | <!-- TODO: e.g. "Engineering Manager, 15 years building software" --> |
+| Course name | Conducting Effective 1-on-1s |
+| Tagline | Let's get ready to learn |
+| Instructor name | Andres Fuentes |
+| Instructor title | Engineering Leader, 15+ years |
 | Course URL | <!-- TODO: udemy.com/course/... --> |
 | Logo (light bg) | `templates/_assets/logo-light.svg` <!-- TODO: place file --> |
 | Logo (dark bg) | `templates/_assets/logo-dark.svg` <!-- TODO: place file --> |
