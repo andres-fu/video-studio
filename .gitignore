@@ -5,6 +5,8 @@
 # Episode outputs (rebuildable from raw + skill state)
 episodes/*/edit/
 episodes/*/motion-graphics/*.mp4
+episodes/*/motion-graphics/*.webm
+episodes/*/motion-graphics/.thumbnails/
 episodes/*/final/*.mp4
 
 # Keep the template directory tracked but its sample contents ignored
@@ -17,15 +19,15 @@ episodes/*/raw/*.MP4
 episodes/*/raw/*.MOV
 
 # Vendored skill (cloned by install.sh, not version-controlled here)
-skills/video-use/.git/
-skills/video-use/node_modules/
-skills/video-use/__pycache__/
-skills/video-use/.venv/
+skills/video-use/
 
 # Hyperframes scratch
 node_modules/
 .next/
 .turbo/
+
+# Claude session memory — personal, not for public repos
+.claude/
 
 # macOS
 .DS_Store
